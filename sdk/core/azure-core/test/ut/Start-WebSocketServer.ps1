@@ -9,5 +9,8 @@ if ($IsWindows) {
     -ArgumentList 'websocket_server.py' `
     -NoNewWindow -PassThru -RedirectStandardOutput $LogFileLocation
 } else { 
-  Start-Process nohup 'python3 websocket_server.py' -RedirectStandardOutput $LogFileLocation
+  Start-Process `
+    -FilePath (Get-Command nohup) `
+    -ArgumentList @('python3', 'websocket_server.py') `
+    -RedirectStandardOutput $LogFileLocation
 }
