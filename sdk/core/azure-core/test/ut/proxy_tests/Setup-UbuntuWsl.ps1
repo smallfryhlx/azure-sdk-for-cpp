@@ -20,7 +20,7 @@ Write-Host "Running ubuntu.exe first time..."
 
 function createWslPath ($file) {
     # "c:\example\file.txt" -> "example/file.txt"
-    $rootRelativePath = (Resolve-Path $file).Substring(3).Replace('\', '/')
+    $rootRelativePath = (Resolve-Path $file).ToString().Substring(3).Replace('\', '/')
     return "/mnt/c/$rootRelativePath"
 }
 
