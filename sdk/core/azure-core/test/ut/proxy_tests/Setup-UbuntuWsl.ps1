@@ -19,7 +19,8 @@ Write-Host "Running ubuntu.exe first time..."
 ./ubuntu/ubuntu.exe run 'apt update && apt install -y squid'
 
 function createWslPath ($file) {
-    $rootRelativePath = [System.IO.Path]::GetRelativePath('\', $file).Replace('\', '/')
+    # "c:\example\file.txt" -> "example/file.txt"
+    $rootRelativePath = (Resolve-Path $file).Substring(3).Replace('\', '/')
     return "/mnt/c/$rootRelativePath"
 }
 
