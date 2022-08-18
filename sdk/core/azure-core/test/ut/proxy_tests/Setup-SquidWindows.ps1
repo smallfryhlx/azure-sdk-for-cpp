@@ -20,7 +20,7 @@ Start-Process `
 Start-Process `
     -FilePath msiexec.exe `
     -ArgumentList @(
-        '/i ./squid.msi',
+        '/i squid.msi',
         '/passive'
     ) `
     -Wait
@@ -28,4 +28,3 @@ Start-Process `
 Copy-Item "$PSScriptRoot/localproxy/squid.conf" "c:\squid\etc\squid\squid.conf"
 Copy-Item "$PSSCriptRoot/localproxy.passwd/squid.conf" "c:\squid\etc\squid\squid.passwd.conf"
 Copy-Item "$PSSCriptRoot/localproxy.passwd/proxypasswd" "c:\squid\etc\squid\passwords"
-
