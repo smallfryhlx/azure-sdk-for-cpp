@@ -25,6 +25,8 @@ Start-Process `
     ) `
     -Wait
 
+Write-Host "Wait before copying the config..."
+pause
 Copy-Item "$PSScriptRoot/localproxy/squid.conf" "c:\squid\etc\squid\squid.conf"
 Copy-Item "$PSSCriptRoot/localproxy.passwd/squid.conf" "c:\squid\etc\squid\squid.passwd.conf"
 Copy-Item "$PSSCriptRoot/localproxy.passwd/proxypasswd" "c:\squid\etc\squid\passwords"
