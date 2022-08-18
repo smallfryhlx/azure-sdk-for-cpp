@@ -7,13 +7,23 @@ param(
 Start-BitsTransfer -Source $SquidSetupUrl -Destination ./squid.msi
 Start-BitStransfer -Source $CygwinSetupUrl -Destination ./cygwin-setup.exe
 
-./cygwin-setup.exe `
-    --download `
-    --packages libcrypt2 `
-    --quiet-mode `
-    --prune-install `
-    --site 'http://www.gtlib.gatech.edu/pub/cygwin/'
-msiexec /i ./squid.msi /passive /quiet | Wait-Process
+Start-Process `
+    -FilePath ./cygwin-setup.exe `
+    -ArgumentList @(
+        '--download',
+        '--packages libcrypt2',
+        '--quiet-mode',
+        '--prune-install',
+        '--site http://www.gtlib.gatech.edu/pub/cygwin/'
+    ) `
+    -Wait
+Start-Process `
+    -FilePath msiexec.exe `
+    -ArgumentList @(
+        '/i ./squid.msi',
+        '/passive'
+    ) `
+    -Wait
 
 Copy-Item "$PSScriptRoot/localproxy/squid.conf" "c:\squid\etc\squid\squid.conf"
 Copy-Item "$PSSCriptRoot/localproxy.passwd/squid.conf" "c:\squid\etc\squid\squid.passwd.conf"
