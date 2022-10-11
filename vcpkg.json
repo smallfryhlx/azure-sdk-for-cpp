@@ -12,6 +12,10 @@
     },
     {
       "name": "openssl"
+    },
+    {
+      "name": "wil",
+      "platform": "windows"
     }
   ]
 }
