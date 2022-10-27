@@ -9,6 +9,7 @@ parameters:
 steps:
   - script: mkdir build
     displayName: create working directory
+    continueOnError: true
 
   - script: cmake --version
     workingDirectory: build
