@@ -115,7 +115,7 @@ jobs:
     # It is 'enabled' by default on linux-gcc but it can be opt-out by each pipeline (disabled)
     condition: and(succeededOrFailed(), ne(variables['CODE_COVERAGE'], 'disabled'), ne(variables['CODE_COVERAGE'], ''))
 
-  - ${{ if or(contains(variables['CmakeArgs'], 'BUILD_TESTING'),contains(variables['CmakeArgs'], 'BUILD_PERFORMANCE_TESTS')) }}:
+  - ${{ if contains(variables['CmakeArgs'], 'BUILD_TESTING') }}:
     - template: /eng/pipelines/templates/steps/cmake-build.yml
       parameters:
         ServiceDirectory: ${{ parameters.ServiceDirectory }}
