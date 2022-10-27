@@ -137,7 +137,7 @@ jobs:
             ServiceDirectory: ${{ parameters.ServiceDirectory }}
             TestPipeline: ${{ parameters.TestPipeline }}
 
-      - ${{ if or(contains(parameters.CmakeArgs, 'BUILD_TESTING'),contains(parameters.CmakeArgs, 'BUILD_PERFORMANCE_TESTS')) }}:
+      - ${{ if or(contains($(CmakeArgs), 'BUILD_TESTING'),contains($(CmakeArgs), 'BUILD_PERFORMANCE_TESTS')) }}:
         - template: /eng/pipelines/templates/steps/cmake-build.yml
         parameters:
             ServiceDirectory: ${{ parameters.ServiceDirectory }}
