@@ -7,9 +7,8 @@ parameters:
 
 
 steps:
-  - script: mkdir build
+  - script: mkdir -p build
     displayName: create working directory
-    continueOnError: true
 
   - script: cmake --version
     workingDirectory: build
