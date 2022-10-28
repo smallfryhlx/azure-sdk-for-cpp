@@ -20,21 +20,21 @@ steps:
     displayName: cmake generate no test
     env:
       VCPKG_BINARY_SOURCES: $(VCPKG_BINARY_SOURCES_SECRET)
-    condition: or(contains(${{parameters.GenerateArgs}}, "BUILD_TESTING"),contains(${{parameters.GenerateArgs}}, "BUILD_PERFORMANCE_TESTS"))
+    condition: or(contains("${{parameters.GenerateArgs}}", "BUILD_TESTING"),contains("${{parameters.GenerateArgs}}", "BUILD_PERFORMANCE_TESTS"))
 
 # Core should build all cmake tagets
   - ${{ if and(eq(parameters.Build, true), eq(parameters.ServiceDirectory, 'core')) }}:
     - script: cmake --build . ${{ parameters.BuildArgs }}
       workingDirectory: build
       displayName: cmake build All NO Test
-      condition: or(contains(${{parameters.GenerateArgs}}, "BUILD_TESTING"),contains(${{parameters.GenerateArgs}}, "BUILD_PERFORMANCE_TESTS"))
+      condition: or(contains("${{parameters.GenerateArgs}}", "BUILD_TESTING"),contains("${{parameters.GenerateArgs}}", "BUILD_PERFORMANCE_TESTS"))
 
 # Non-core services define the list of targets to build
   - ${{ if and(eq(parameters.Build, true) , ne(parameters.ServiceDirectory, 'core')) }}:
     - pwsh: cmake --build . ${{ parameters.BuildArgs }} --target (Get-Content ${{ parameters.ServiceDirectory }}-targets-build.txt)
       workingDirectory: build
       displayName: cmake build Targets NO Test
-      condition: or(contains(${{parameters.GenerateArgs}}, "BUILD_TESTING"),contains(${{parameters.GenerateArgs}}, "BUILD_PERFORMANCE_TESTS"))
+      condition: or(contains("${{parameters.GenerateArgs}}", "BUILD_TESTING"),contains("${{parameters.GenerateArgs}}", "BUILD_PERFORMANCE_TESTS"))
 
   - script: |
       ${{ parameters.Env }} cmake ${{ parameters.GenerateArgs }} ..
