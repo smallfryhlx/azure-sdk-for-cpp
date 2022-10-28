@@ -115,14 +115,6 @@ jobs:
     # It is 'enabled' by default on linux-gcc but it can be opt-out by each pipeline (disabled)
     condition: and(succeededOrFailed(), ne(variables['CODE_COVERAGE'], 'disabled'), ne(variables['CODE_COVERAGE'], ''))
 
-  - ${{ if contains(variables['CmakeArgs'], 'BUILD_TESTING') }}:
-    - template: /eng/pipelines/templates/steps/cmake-build.yml
-      parameters:
-        ServiceDirectory: ${{ parameters.ServiceDirectory }}
-        GenerateArgs: "-DINSTALL_GTEST=OFF -DBUILD_TESTING=OFF -DBUILD_PERFORMANCE_TESTS=OFF -DRUN_LONG_UNIT_TESTS=OFF $(CmakeArgs) -DINSTALL_GTEST=OFF -DBUILD_TESTING=OFF -DBUILD_PERFORMANCE_TESTS=OFF -DRUN_LONG_UNIT_TESTS=OFF "
-        BuildArgs: "$(BuildArgs)"
-        Env: "$(CmakeEnvArg)"
-
   - template: /eng/pipelines/templates/steps/cmake-build.yml
     parameters:
       ServiceDirectory: ${{ parameters.ServiceDirectory }}
