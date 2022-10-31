@@ -39,13 +39,8 @@ parameters:
 - name: PostTestSteps
   type: stepList
   default: []
-- name: CmakeArgs
-  type: string
-  default: ""
-- name: BuildArgs
-  type: string
-  default: ""
-    
+
+
 jobs:
 - job: ValidateLive
   dependsOn: ${{ parameters.DependsOn }}
@@ -67,9 +62,10 @@ jobs:
     CMOCKA_XML_FILE: "%g-test-results.xml"
     CMOCKA_MESSAGE_OUTPUT: "xml"
     AZURE_ENABLE_STATIC_ANALYSIS: 1
+    BuildArgs: ""
     WindowsCtestConfig: ""
     CmakeEnvArg: ""
-    #CmakeArgs: ""
+    CmakeArgs: ""
     AZURE_TEST_MODE: "LIVE"
     AZURE_LOG_LEVEL: "verbose"
     # Surface the ServiceDirectory parameter as an environment variable so tests can take advantage of it.
