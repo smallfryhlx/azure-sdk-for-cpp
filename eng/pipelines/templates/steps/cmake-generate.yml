@@ -23,6 +23,13 @@ steps:
     env:
       VCPKG_BINARY_SOURCES: $(VCPKG_BINARY_SOURCES_SECRET)
 
+  - task: PublishPipelineArtifact@1
+    displayName: Publish build failure artifacts
+    condition: failed()
+    inputs:
+      targetPath: ${{ parameters.CmakeGeneratePath }}/build
+      artifact: build_failure_$(Agent.JobName)_$(System.JobAttempt)
+
   - script: rm -rf build
     workingDirectory: ${{ parameters.CmakeGeneratePath }}
     displayName: clean build folder
