@@ -34,3 +34,9 @@ steps:
       workingDirectory: build
       displayName: cmake build Targets
 
+  - task: PublishPipelineArtifact@1
+    displayName: Publish build failure artifacts
+    condition: failed()
+    inputs:
+      targetPath: build
+      artifact: build_failure_$(Agent.JobName)
