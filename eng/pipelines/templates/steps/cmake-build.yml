@@ -39,4 +39,4 @@ steps:
     condition: failed()
     inputs:
       targetPath: build
-      artifact: build_failure_$(Agent.JobName)
+      artifact: build_failure_$(Agent.JobName)_$(System.JobAttempt)
