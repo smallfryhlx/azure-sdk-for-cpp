@@ -45,13 +45,14 @@ steps:
         ${{ convertToJson(parameters.SubscriptionConfigurationFilePaths) }}
       '@.Trim()
 
-      if ($subConfigFilesRaw) {
-        $subConfigFiles = $subConfigFilesRaw | ConvertFrom-Json -AsHashtable
-        foreach ($file in $subConfigFiles) {
-          Write-Host "Merging sub config from file: $file"
-          $subConfig = Get-Content $file | ConvertFrom-Json -AsHashtable
-          $finalConfig = UpdateSubscriptionConfiguration $finalConfig $subConfig
+      $subConfigFiles = $subConfigFilesRaw | ConvertFrom-Json -AsHashtable
+      foreach ($file in $subConfigFiles) {
+        if (!$file) {
+          continue
         }
+        Write-Host "Merging sub config from file: $file"
+        $subConfig = Get-Content $file | ConvertFrom-Json -AsHashtable
+        $finalConfig = UpdateSubscriptionConfiguration $finalConfig $subConfig
       }
 
       Write-Host ($finalConfig | ConvertTo-Json)
